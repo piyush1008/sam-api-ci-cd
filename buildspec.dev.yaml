@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    DEPLOY_PROFILE_NAME: deploy-profile
+    DEPLOY_ROLE_ARN: arn:aws:iam::015021686405:role/hpen-dev-deploy
 phases:
   install:
     runtime-versions:
@@ -16,8 +20,10 @@ phases:
     commands:
       #- aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
       #- sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yml
+      - chmod +x assume-role.sh
+      - ./assume-role.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME
       - sam build 
-      - sam deploy
+      - sam deploy --profile $DEPLOY_PROFILE_NAME
 artifacts:
   files:
     - packaged-template.yaml
