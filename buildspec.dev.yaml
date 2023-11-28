@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+       nodejs: 18
+    commands:
+      - echo "Building"
+      - cd lambda 
+      - npm install
+      - cd ..
+      - cd lambda1
+      - npm install
+      - cd ..
+  build:
+    commands:
+      - aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
+      - sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yml
+artifacts:
+  files:
+    - packaged-template.yaml
