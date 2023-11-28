@@ -14,7 +14,7 @@ phases:
       - cd ..
   build:
     commands:
-      - aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
+      #- aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
       - sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yml
 artifacts:
   files:
