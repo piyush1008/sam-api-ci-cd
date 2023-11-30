@@ -12,7 +12,7 @@ phases:
       - cd lambda1
       - npm install
       - cd ..
-      - cd lambda2
+      - cd lamdba2
       - npm install
       - cd ..
   build:
