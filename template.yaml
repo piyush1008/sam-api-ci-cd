@@ -15,3 +15,9 @@ Resources:
       CodeUri: lambda1/
       Handler: index.handler
       Runtime: nodejs18.x
+ hpapiv3:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda2/
+      Handler: index.handler
+      Runtime: nodejs18.x

@@ -18,3 +18,11 @@ Resources:
       Runtime: nodejs18.x
     Metadata:
       SamResourceId: hpapiv2
+  hpapicase:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: hpapicase
+      Handler: index.handler
+      Runtime: nodejs18.x
+    Metadata:
+      SamResourceId: hpapicase
