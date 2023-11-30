@@ -19,7 +19,7 @@ phases:
     commands:
       #- aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
       - sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yaml
-      #- sam deploy --template-file packaged-template.yaml --stack-name hpapi --capabilities CAPABILITY_IAM
+      - sam deploy --template-file packaged-template.yaml --stack-name hpapi --capabilities CAPABILITY_IAM
       #- chmod +x assume-role.sh
       #- ./assume-role.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME
       #- sam build 
