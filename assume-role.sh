@@ -23,3 +23,6 @@ aws configure set aws_session_token ${sts[2]} --profile $OUTPUT_PROFILE
 echo "credentials stored in the profile named '$OUTPUT_PROFILE'"
 
 echo "**********************************************"
+
+
+#  events:RemoveTargets

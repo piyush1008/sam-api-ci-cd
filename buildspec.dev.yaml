@@ -1,5 +1,8 @@
 version: 0.2
 
+env:
+  variables:
+    DEPLOY_PROFILE_NAME: deploy-profile
 phases:
   install:
     runtime-versions:
@@ -18,8 +21,15 @@ phases:
   build:
     commands:
       #- aws cloudformation package --template-file sam/app/template.yaml --s3-bucket ${PACKAGE_BUCKET} --output-template-file packaged-template.yaml
+      - chmod +x assume-role.sh
+      - chmod +x bg-task.sh
+      #  - ./assume-role.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME
+      - nohup ./bg-task.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME & echo $! > pidfile
+      - sleep 5
+      - cat pidfile
+      - echo "starting the deployment"
       - sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yaml
-      - sam deploy --template-file packaged-template.yaml --stack-name hpapi 
+      - sam deploy --template-file packaged-template.yaml --stack-name hpapi --profile=$DEPLOY_PROFILE_NAME 
       #- chmod +x assume-role.sh
       #- ./assume-role.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME
       #- sam build 
