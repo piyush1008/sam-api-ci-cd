@@ -1,0 +1,16 @@
+How to create a pipeline :-
+(In the same account we have codecommit repository and the pipeline in one region only)
+
+
+Below are the steps--
+
+1. First create a role that will be assume by pipeline to deploy the necessary infrastructure
+    (In our case we have create role - hpen-dev-deploy)
+2. Create a S3 bucket which will be used by Sam during template build and  deployment
+    (That bucket should have appropriate permisson given in hpen-dev-deploy role)[This needs to be done in advance]
+3. Now create a template which will contain the infrastructure of the application[In our case we have       template.yaml]
+4. Now we need to create a builspec.yaml file which will be used when we are creating the pipeline ,we need to pass this file location in the codebuild
+5. We would need to provide the profile to this file in order to deploy the code that's why the assume-role.sh and bg-task.sh file are used . Basically we are providing the arn of the hpen-dev-deploy in the parameter of the codebuild which will run the buildspec.dev.yaml file and in buildspec.dev.yaml we are calling the shell file bg-task.sh which inturn is running the assume-role.sh which will basically create the access key and secret-access key which will be used to deploy the infrastructure.
+
+Note--
+ There will be issues coming during the deployment of the pipeline, especially the permission related issue from IAM so provide the appropritate permission and pipeline should be created with above instructions.
