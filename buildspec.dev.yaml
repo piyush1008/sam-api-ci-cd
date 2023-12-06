@@ -29,7 +29,7 @@ phases:
       - cat pidfile
       - echo "starting the deployment"
       - sam package --template-file template.yaml --s3-bucket hpapi --output-template-file packaged-template.yaml
-      - sam deploy --template-file packaged-template.yaml --stack-name hpapi --profile=$DEPLOY_PROFILE_NAME 
+      - sam deploy --template-file packaged-template.yaml --stack-name hpapi --capabilities CAPABILITY_IAM --profile=$DEPLOY_PROFILE_NAME 
       #- chmod +x assume-role.sh
       #- ./assume-role.sh $DEPLOY_ROLE_ARN $DEPLOY_PROFILE_NAME
       #- sam build 
